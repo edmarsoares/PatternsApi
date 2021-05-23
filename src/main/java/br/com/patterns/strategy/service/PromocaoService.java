@@ -16,6 +16,9 @@ public class PromocaoService {
 
 	@Autowired
 	private PromocaoRepository repository;
+	
+	@Autowired
+	private PromocaoContext context;
 
 	/**
 	 * MÉTODO COM PADRÃO STRATEGY
@@ -38,8 +41,7 @@ public class PromocaoService {
 	}
 
 	private void gerarPromocao(DiaPromocao diaPromocao) {
-		PromocaoContext context = new PromocaoContext(diaPromocao.getDiaSemana());
-		context.obterDesconto(diaPromocao);
+		context.getStrategy(diaPromocao.getDiaSemana()).obterDescontoSemana(diaPromocao);
 	}
 
 	public Optional<DiaPromocao> buscarDiaPromocao(DiaSemana diaSemana) throws Exception {
